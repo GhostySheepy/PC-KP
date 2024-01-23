@@ -34,10 +34,6 @@ public:
 	std::vector<std::string> get_filenames(int asked_qty);
 	std::vector<std::string> try_get_filenames(int asked_qty);
 
-	FolderIter(FolderIter&&) = default;
-	FolderIter(const FolderIter&) = default;
-	FolderIter& operator= (const FolderIter&) = default;
-
 private:
 
 	std::string make_filename(int num) const;

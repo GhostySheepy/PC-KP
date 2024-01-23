@@ -49,9 +49,6 @@ std::vector<std::string> FolderIter::try_get_filenames(int asked_qty)
 	write_lock lock(m_rw_lock, std::defer_lock);
 
 	if (lock.try_lock()) {
-
-		std::cout << "succsessfully aquired" << std::endl;
-
 		return tu_get_filenames(asked_qty);
 	}
 	std::vector<std::string> result;
@@ -61,10 +58,11 @@ std::vector<std::string> FolderIter::try_get_filenames(int asked_qty)
 
 std::string FolderIter::make_filename(int num) const
 {
-	std::cout << "made filename" << std::endl;
+	
 	std::string result = m_path;
 	result.append(std::to_string(num));
 	result.append(m_filename_end);
+	std::cout << "made filename  " << result << std::endl;
 	return result;
 }
 

@@ -20,11 +20,16 @@ class FolderManager
 {
 private:
 	std::vector<FolderIter*> m_folders;
+
+	bool m_empty;
 public:
 	FolderManager(std::vector<FolderIter*> new_folders);
+	
+	void add_folder(FolderIter* new_folder);
 
 	std::string try_get_filename();
 
 	std::vector<std::string> get_filenames(int requested_num);
+	bool is_empty();
 };
 
