@@ -32,6 +32,32 @@ std::string FolderManager::try_get_filename()
 	return result;
 }
 
+std::vector<std::string> FolderManager::try_get_filenames(int requested_num)
+{
+	std::vector<std::string> result;
+	bool found = false;
+	int left_cap = m_folders.size();
+
+	for (int i = 0; i < m_folders.size(); i++) {
+		result = m_folders[i]->try_get_filenames(requested_num);
+		if (result[0] == "EMPT") {
+			left_cap -= 1;
+		}
+		if (result[0] != "EMPT" && result[0] != "LCKD") {
+			found = true;
+			break;
+		}
+
+
+	}
+
+	if (left_cap == 0) {
+		m_empty = true;
+	}
+
+	return result;
+}
+
 std::vector<std::string> FolderManager::get_filenames(int requested_num)
 {
 	std::vector<std::string> result;

@@ -30,20 +30,13 @@ namespace Helpers
 
         /*std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
         return converter.from_bytes(in);*/
-
-        if (in.empty())
-            return std::wstring();
-
         size_t charsNeeded = ::MultiByteToWideChar(CP_UTF8, 0,
             in.data(), (int)in.size(), NULL, 0);
-        if (charsNeeded == 0)
-            std::cout<< "Failed converting UTF-8 string to UTF-16" <<std::endl;
 
         std::vector<wchar_t> buffer(charsNeeded);
         int charsConverted = ::MultiByteToWideChar(CP_UTF8, 0,
             in.data(), (int)in.size(), &buffer[0], buffer.size());
-        if (charsConverted == 0)
-            std::cout << "Failed converting UTF-8 string to UTF-16" << std::endl;
+   
 
         return std::wstring(&buffer[0], charsConverted);
 

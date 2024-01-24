@@ -1,5 +1,6 @@
 #pragma once
 #include <set>
+#include <unordered_set>
 #include <utility>
 #include <unordered_map>
 #include <string>
@@ -38,6 +39,8 @@ private:
 	Thread_Pool<std::function<void()>>& m_ThreadPool;
 
 	bool escape;
+
+	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 
 
 public:

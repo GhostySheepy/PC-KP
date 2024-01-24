@@ -7,7 +7,7 @@ namespace Workers {
 		int skipped_index_synchro = 0;
 
 		bool stop_work_add = false;
-		std::vector<std::string> work_files = cur_fm.get_filenames(5);
+		std::vector<std::string> work_files = cur_fm.get_filenames(100);
 		if (work_files[0] == "EMPT") {
 			work_files = {};
 			stop_work_add = true;
@@ -25,7 +25,7 @@ namespace Workers {
 			work_files.pop_back();
 			cur_file_readout = Helpers::readfile(cur_file);
 
-			boost::split(cur_words, cur_file_readout, boost::is_any_of("#&?!:;., \r\n\t"), boost::token_compress_on);
+			boost::split(cur_words, cur_file_readout, boost::is_any_of("?!:., \n"));
 
 			for (std::string word : cur_words) {
 				if (word.size() < 2) {
@@ -45,20 +45,17 @@ namespace Workers {
 			}
 
 			//synchronize
-			if (skipped_index_synchro < 5) {
+			skipped_index_synchro++;
+			if (skipped_index_synchro > 10) {
 				bool synchro_result = cur_ind->try_index_syncro(mini_index);
-				if (synchro_result == false) {
-					skipped_index_synchro++;
-				}
-				else {
+				if (synchro_result == true) {
 					//Helpers::print_index(mini_index, "mini 0");
 
 					mini_index = {};
 					skipped_index_synchro = 0;
 				}
-
 			}
-			else {
+			else if (skipped_index_synchro > 15) {
 				cur_ind->force_index_synchro(mini_index);
 				//Helpers::print_index(mini_index, "mini 1");
 				mini_index = {};
@@ -70,21 +67,23 @@ namespace Workers {
 				continue;
 			}
 
-			if (work_files.size() > 3) {
-				std::string try_add = cur_fm.try_get_filename();
-				if (try_add == "EMPT") {
-					stop_work_add = true;
-				}
-				else {
-					work_files.push_back(try_add);
-				}
-			}
-			else {
-				std::vector<std::string> try_add = cur_fm.get_filenames(5);
+			if (work_files.size() > 30 && work_files.size() % 10 == 0) {
+				std::vector<std::string> try_add = cur_fm.try_get_filenames(100);
 				if (try_add[0] == "EMPT") {
 					stop_work_add = true;
 				}
-				else {
+				else if (try_add[0] != "LCKD") {
+					for (auto i : try_add) {
+						work_files.push_back(i);
+					}
+				}
+			}
+			else if (work_files.size() < 10) {
+				std::vector<std::string> try_add = cur_fm.get_filenames(100);
+				if (try_add[0] == "EMPT") {
+					stop_work_add = true;
+				}
+				else if (try_add[0] != "LCKD") {
 					for (auto i : try_add) {
 						work_files.push_back(i);
 					}

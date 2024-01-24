@@ -28,6 +28,7 @@ public:
 	void add_folder(FolderIter* new_folder);
 
 	std::string try_get_filename();
+	std::vector<std::string> try_get_filenames(int requested_num);
 
 	std::vector<std::string> get_filenames(int requested_num);
 	bool is_empty();
