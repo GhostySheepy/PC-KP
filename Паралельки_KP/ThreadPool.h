@@ -11,7 +11,6 @@
 #include <random>
 #include <chrono>
 #include <utility>
-#include <limits>
 
 
 
@@ -160,7 +159,7 @@ public:
         std::mt19937 mt(rd());
         std::uniform_int_distribution<int> dist(0, 1);
         int result = 0;
-        if (dist(mt) == 0) {
+        if (m_task_queue_0.size() < m_task_queue_1.size()) {
             result = m_task_queue_0.push(bound_func);
 
             if (result == 0) {
@@ -346,20 +345,20 @@ private:
 
             if (m_cancelled || (m_terminated))
             {
-                std::cout << "THREAD GONE" << std::endl;
+                std::cout << std::endl << "THREAD GONE" << std::endl;
                 return;
             }
 
-            if (!m_paused) {
+            if (!m_paused && popped) {
                 task();
             }
             else {
                 std::random_device rd;
                 std::mt19937 mt(rd());
                 int st = 0;
-                int ed = 1;
+                int ed = 200;
                 std::uniform_int_distribution<int> dist(st, ed);
-                std::this_thread::sleep_for(std::chrono::seconds(dist(mt)));
+                std::this_thread::sleep_for(std::chrono::milliseconds(dist(mt)));
             }
 
         }

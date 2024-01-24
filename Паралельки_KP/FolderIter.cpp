@@ -24,7 +24,7 @@ std::string FolderIter::try_get_filename()
 
 	if (lock.try_lock()) {
 
-		std::cout << "succsessfully aquired" << std::endl;
+		//std::cout << "succsessfully aquired" << std::endl;
 
 		if (m_iter_current > m_iter_end) {
 			return "EMPT";
@@ -62,7 +62,7 @@ std::string FolderIter::make_filename(int num) const
 	std::string result = m_path;
 	result.append(std::to_string(num));
 	result.append(m_filename_end);
-	std::cout << "made filename  " << result << std::endl;
+	//std::cout << "made filename  " << result << std::endl;
 	return result;
 }
 

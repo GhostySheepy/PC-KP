@@ -1,7 +1,9 @@
 #pragma once
 #include <set>
+#include <utility>
 #include <unordered_map>
 #include <string>
+#include <future>
 
 #include "external\Stemming\english_stem.h"
 
@@ -28,23 +30,36 @@ private:
 
 	FolderManager& m_FolderManager;
 	bool indexed; 
+	std::atomic<int> m_ready_count;
+
+	std::vector<std::pair< std::string, std::promise<std::set<std::string>>&>> m_find_reqests;
+	mutable read_write_lock m_req_lock;
 
 	Thread_Pool<std::function<void()>>& m_ThreadPool;
+
+	bool escape;
 
 
 public:
 	InvertedIndex(FolderManager& new_FM, Thread_Pool<std::function<void()>>& new_TM);
 
 	int mainloop();
-
-
-private:
-	void indexing_loop();
-	void start_indexing();
-
+	void kill_mainloop();
 
 	bool try_index_syncro(std::unordered_map<std::wstring, std::set<std::string>>& mini_index);
 	void force_index_synchro(std::unordered_map<std::wstring, std::set<std::string>>& mini_index);
+	void print_index();
+
+	void find_request(std::string req_word, std::promise<std::set<std::string>>& promise);
+
+	
+
+	std::set<std::string> apply_find(std::string rq);
+	
+
+private:
+	void indexing_loop(int worker_num);
+	void start_indexing();
 
 	void tu_index_synchro(std::unordered_map<std::wstring, std::set<std::string>>& mini_index);
 

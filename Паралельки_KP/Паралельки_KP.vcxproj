@@ -135,6 +135,9 @@
     <ClCompile Include="Паралельки_KP.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientCMD.h" />
+    <ClInclude Include="ClientFake.h" />
+    <ClInclude Include="Workers.h" />
     <ClInclude Include="FolderIter.h" />
     <ClInclude Include="FolderManager.h" />
     <ClInclude Include="Helpers.h" />
