@@ -49,14 +49,14 @@ int main()
     
     read_write_lock cmd_mutex;
 
-    //std::thread th0(ClientCMD::run, std::ref(cmd_mutex), std::ref(inv_ind));
-    std::thread th1(ClientFake::run_fake, std::ref(cmd_mutex), std::ref(inv_ind), start);
+    std::thread th0(ClientCMD::run, std::ref(cmd_mutex), std::ref(inv_ind));
+    //std::thread th1(ClientFake::run_fake, std::ref(cmd_mutex), std::ref(inv_ind), start);
 
     inv_ind.mainloop();
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    //th0.join();
-    th1.join();
+    th0.join();
+    //th1.join();
     tp.terminate();    
 }

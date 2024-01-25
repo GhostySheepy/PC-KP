@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FolderIter">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABCAEAAAAAACIEAAAAAAACAAAgACAAAQAEAAIA=</HashCode>
+      <FileName>FolderIter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderManager">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAEBAEAAAAAAAAAAABACABAgAAAAAAAAAAAA=</HashCode>
+      <FileName>FolderManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvertedIndex">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAAkKEAAACgAAAAACwIAIgAAAAAEIwAAAAYAAA=</HashCode>
+      <FileName>InvertedIndex.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Thread_Pool&lt;TaskType&gt;">
+    <Position X="4" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAJkQgBEQAAAAAAAgAEAgAABABAAmAAgCAAhIAAQNAA=</HashCode>
+      <FileName>ThreadPool.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

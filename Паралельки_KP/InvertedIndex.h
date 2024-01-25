@@ -61,7 +61,6 @@ public:
 	
 
 private:
-	void indexing_loop(int worker_num);
 	void start_indexing();
 
 	void tu_index_synchro(std::unordered_map<std::wstring, std::set<std::string>>& mini_index);

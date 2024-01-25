@@ -32,8 +32,9 @@ namespace Workers {
 					continue;
 				}
 
+				boost::to_lower(word);
 				proc_word = Helpers::string_to_wstring(word);
-				boost::to_lower(proc_word);
+				
 				StemEnglish(proc_word);
 
 				if (mini_index.find(proc_word) == mini_index.end()) {
@@ -46,7 +47,7 @@ namespace Workers {
 
 			//synchronize
 			skipped_index_synchro++;
-			if (skipped_index_synchro > 10) {
+			if (skipped_index_synchro > 5) {
 				bool synchro_result = cur_ind->try_index_syncro(mini_index);
 				if (synchro_result == true) {
 					//Helpers::print_index(mini_index, "mini 0");
